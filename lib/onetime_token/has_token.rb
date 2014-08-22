@@ -3,13 +3,13 @@ module OnetimeToken
     def has_onetime_token(name, options={})
       define_singleton_method :"find_by_#{name}_token" do |secret|
         token = Token.new(self, name, secret)
-        if stored_model_id = token.fetch_model_id
+        if stored_model_id = token.model_id
           find_by(id: stored_model_id)
         end
       end
 
       define_singleton_method(:"expipre_#{name}_token") do |secret|
-        token = Token.new(self.class, name, secret)
+        token = Token.new(self, name, secret)
         token.delete
       end
 
@@ -17,9 +17,14 @@ module OnetimeToken
         Token.generate_for self, name, _options
       end
 
+      define_method :"#{name}_token_properties" do |secret|
+        token = Token.new(self.class, name, secret)
+        token.properties
+      end
+
       define_method(:"verify_#{name}_token") do |secret|
         token = Token.new(self.class, name, secret)
-        persisted? && id == token.fetch_model_id
+        persisted? && id == token.model_id
       end
     end
   end

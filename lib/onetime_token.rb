@@ -1,7 +1,10 @@
-require 'onetime_token/version'
+require 'json'
 
 require 'connection_pool'
 require 'redis/namespace'
+
+require 'onetime_token/token'
+require 'onetime_token/has_token'
 
 module OnetimeToken
   class << self
@@ -18,8 +21,8 @@ module OnetimeToken
         if connection_options.is_a?(ConnectionPool)
           connection_options
         else
-          pool_options = connection_options.delete(:pool)
-          pool_options.reverse_merge!(timeout: 1, size: 1)
+          pool_options = {timeout: 1, size: 1}.
+            merge(connection_options.delete(:pool) || {})
           ConnectionPool::Wrapper.new(pool_options) do
             namespace = connection_options.delete(:namespace) || 'onetime_token'
             client = Redis.new(connection_options)
