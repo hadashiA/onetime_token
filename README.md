@@ -51,7 +51,6 @@ user = User.find(1)
 user.verify_email_confirmation_token('9eyZsVbrr4jLiVcERI7V6gmo')
 #=> true
 
-user.expire_email_confirmation_token
 User.find_by_email_confirmation_token('9eyZsVbrr4jLiVcERI7V6gmo')
 #=> nil
 ```

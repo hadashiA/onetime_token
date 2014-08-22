@@ -48,14 +48,14 @@ describe OnetimeToken::Token do
     end
   end
 
-  describe '#delete' do
+  describe '#expire' do
     let(:token) do
       OnetimeToken::Token.generate_for(user, :email_confirmation)
     end
 
     it "should remove stored data" do
       expect {
-        token.delete
+        token.expire
       }.to change{ OnetimeToken.redis_pool.get(token.key) }.to(nil)
     end
   end

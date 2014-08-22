@@ -44,29 +44,41 @@ describe OnetimeToken::HasToken do
     end
   end
 
-  describe 'Model.expire_:name_token' do
-    let(:token) do
-      user.generate_email_confirmation_token
-    end
-
-    it "should delete sotred data" do
-      expect {
-        User.expire_email_confirmation_token(token.secret)
-      }.to change{ OnetimeToken.redis_pool.get(token.key) }.to(nil)
-    end
-  end
-
   describe 'Model#verify_:name_token' do
     let(:token) do
       user.generate_email_confirmation_token
     end
 
-    it "should veirfy token" do
-      expect(user.verify_email_confirmation_token token.secret).to be_truthy
+    context 'valid token secret' do
+      let(:secret) do
+        token.secret
+      end
+
+      it "should be true" do
+        expect(user.verify_email_confirmation_token secret).to be_truthy
+      end
+
+      it "should expire stored data" do
+        expect {
+          user.verify_email_confirmation_token secret
+        }.to change{ OnetimeToken.redis_pool.get token.key }.to(nil)
+      end
     end
 
-    it 'should not verify invalid secret' do
-      expect(user.verify_email_confirmation_token 'owaieowaoiaowwo').to be_falsey
+    context 'invalid token secret' do
+      let(:secret) do
+        'soaieowao'
+      end
+
+      it "should be false" do
+        expect(user.verify_email_confirmation_token secret).to be_falsey
+      end
+
+      it "should expire stored data" do
+        expect {
+          user.verify_email_confirmation_token secret
+        }.to_not change{ OnetimeToken.redis_pool.get token.key }
+      end
     end
   end
 end

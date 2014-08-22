@@ -31,7 +31,7 @@ module OnetimeToken
       @secret      = secret
     end
 
-    def delete
+    def expire
       OnetimeToken.redis_pool.del key
     end
 
