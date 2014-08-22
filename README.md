@@ -1,5 +1,7 @@
 # OnetimeToken
 
+*Work in progress*
+
 TODO: Write a gem description
 
 ## Installation
