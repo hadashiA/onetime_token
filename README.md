@@ -34,7 +34,7 @@ end
 ```
 
 ```ruby
-class User
+class User < ActiveRecord::Base
   has_onetime_token :email_confirmation, expires_in: 1.hours
 end
 ```
