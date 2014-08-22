@@ -41,8 +41,8 @@ end
 
 ```ruby
 user = User.find(1)
-user.generate_email_confirmation_token
-#=> 9eyZsVbrr4jLiVcERI7V6gmo
+token =user.generate_email_confirmation_token
+token.secret #=> 9eyZsVbrr4jLiVcERI7V6gmo
 
 User.find_by_email_confirmation_token('9eyZsVbrr4jLiVcERI7V6gmo')
 #=> #<User id: 1>
