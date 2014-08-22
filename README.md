@@ -18,6 +18,19 @@ Or install it yourself as:
 
 ## Usage
 
+```
+OnetimeToken.configure do |config|
+  config.reds = {
+    url: 'redis://localhost:6379'
+    deiver: :redis # e.g :hireds
+    pool: {
+      size: 1,
+      timeout: 1,
+    }
+  }
+end
+```
+
 ```ruby
 class User
   has_onetime_token :email_confirmation, expires_in: 1.hours
