@@ -8,6 +8,10 @@ require 'onetime_token/has_token'
 
 module OnetimeToken
   class << self
+    def extended(base)
+      base.extend HasToken
+    end
+
     def configure
       yield self
     end

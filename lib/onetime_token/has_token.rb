@@ -8,7 +8,7 @@ module OnetimeToken
         end
       end
 
-      define_singleton_method(:"expipre_#{name}_token") do |secret|
+      define_singleton_method(:"expire_#{name}_token") do |secret|
         token = Token.new(self, name, secret)
         token.delete
       end
@@ -24,7 +24,7 @@ module OnetimeToken
 
       define_method(:"verify_#{name}_token") do |secret|
         token = Token.new(self.class, name, secret)
-        persisted? && id == token.model_id
+        id && id == token.model_id
       end
     end
   end

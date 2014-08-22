@@ -6,7 +6,7 @@ describe OnetimeToken::Token do
   end
 
   let(:user) do
-    User.new(id: 101)
+    double :user, id: 101
   end
 
   describe '.generate_for' do
@@ -34,6 +34,17 @@ describe OnetimeToken::Token do
       it "expires in specify date after" do
         expect(OnetimeToken.redis_pool.ttl token.key).to eq(60)
       end
+    end
+  end
+
+  describe '#key' do
+    let(:token) do
+      OnetimeToken::Token.generate_for(user, :email_confirmation)
+    end
+
+    it "should containg token name and secret" do
+      expect(token.key).to be_include(token.secret)
+      expect(token.key).to be_include('email_confirmation')
     end
   end
 

@@ -5,15 +5,3 @@ OnetimeToken.configure do |config|
     url: 'redis://localhost:6379'
   }
 end
-
-class User
-  attr_reader :id
-
-  def self.find_by(attributes={})
-    new(attributes)
-  end
-
-  def initialize(attributes={})
-    @id = attributes[:id]
-  end
-end
