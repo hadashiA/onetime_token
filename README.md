@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-```
+```ruby
 OnetimeToken.configure do |config|
   config.reds = {
     url: 'redis://localhost:6379'
@@ -39,7 +39,7 @@ class User
 end
 ```
 
-```
+```ruby
 user = User.find(1)
 user.generate_email_confirmation_token
 #=> 9eyZsVbrr4jLiVcERI7V6gmo
