@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ```ruby
 OnetimeToken.configure do |config|
-  config.reds = {
+  config.redis = {
     url: 'redis://localhost:6379'
     deiver: :redis # e.g :hireds
     pool: {
@@ -35,13 +35,15 @@ end
 
 ```ruby
 class User < ActiveRecord::Base
+  extend OnetimeToken
+
   has_onetime_token :email_confirmation, expires_in: 1.hours
 end
 ```
 
 ```ruby
 user = User.find(1)
-token =user.generate_email_confirmation_token
+token = user.generate_email_confirmation_token
 token.secret #=> 9eyZsVbrr4jLiVcERI7V6gmo
 
 User.find_by_email_confirmation_token('9eyZsVbrr4jLiVcERI7V6gmo')
