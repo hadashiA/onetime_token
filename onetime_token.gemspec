@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Generate a temporary token of secret associated with ActiveRecord. it is stored in redis.}
   spec.description   = %q{Generate a temporary token of secret associated with ActiveRecord. it is stored in redis.
 You will be able to verify whether the token is correct.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/f-kubotar/onetime_token"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
