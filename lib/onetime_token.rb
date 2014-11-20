@@ -22,7 +22,8 @@ module OnetimeToken
 
     def redis=(connection_options)
       @redis =
-        if connection_options.is_a?(ConnectionPool)
+        if connection_options.is_a?(Redis) ||
+            connection_options.is_a?(Redis::Namespace)
           connection_options
         else
           pool_options = {timeout: 1, size: 1}.
