@@ -51,5 +51,9 @@ module OnetimeToken
     def key
       @key ||= "#{@model_class.name.downcase}_#{@name}/#{@secret}"
     end
+
+    def to_param
+      secret
+    end
   end
 end
