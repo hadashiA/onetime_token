@@ -1,8 +1,7 @@
 # OnetimeToken
 
-*Work in progress*
-
-TODO: Write a gem description
+Generate a temporary token of secret associated with ActiveRecord. it is stored in redis.
+You will be able to verify whether the token is correct.
 
 ## Installation
 
