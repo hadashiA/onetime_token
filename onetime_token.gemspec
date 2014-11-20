@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "onetime_token"
   spec.version       = OnetimeToken::VERSION
   spec.authors       = ["f-kubotar"]
-  spec.email         = ["f.kubotar@paperboy.co.jp"]
+  spec.email         = ["dev@hadashikick.jp"]
   spec.summary       = %q{Generate a temporary token of secret associated with ActiveRecord. it is stored in redis.}
   spec.description   = %q{Generate a temporary token of secret associated with ActiveRecord. it is stored in redis.
 You will be able to verify whether the token is correct.}
