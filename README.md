@@ -1,8 +1,7 @@
 # OnetimeToken
 
-*Work in progress*
-
-TODO: Write a gem description
+Generate a temporary token of secret associated with ActiveRecord. it is stored in redis.
+You will be able to verify whether the token is correct.
 
 ## Installation
 
@@ -22,7 +21,7 @@ Or install it yourself as:
 
 ```ruby
 OnetimeToken.configure do |config|
-  config.reds = {
+  config.redis = {
     url: 'redis://localhost:6379'
     deiver: :redis # e.g :hireds
     pool: {
@@ -34,15 +33,17 @@ end
 ```
 
 ```ruby
-class User
+class User < ActiveRecord::Base
+  extend OnetimeToken
+
   has_onetime_token :email_confirmation, expires_in: 1.hours
 end
 ```
 
 ```ruby
 user = User.find(1)
-user.generate_email_confirmation_token
-#=> 9eyZsVbrr4jLiVcERI7V6gmo
+token = user.generate_email_confirmation_token
+token.secret #=> 9eyZsVbrr4jLiVcERI7V6gmo
 
 User.find_by_email_confirmation_token('9eyZsVbrr4jLiVcERI7V6gmo')
 #=> #<User id: 1>
